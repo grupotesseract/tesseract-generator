@@ -1,6 +1,8 @@
 # Tesseract Generator
 Generate a template for InfyOm Laravel Generator/AdminLTE integrated whit front-end project on Laravel 5.4, using shellscript.
-This come from the necessity to run AdminLTE alongside a front-end project, whitout interfering the AdminLTE atyle and scripts, creating separated SASS and Javascript files.
+
+This come from the necessity to run AdminLTE alongside a front-end project, whitout interfering the AdminLTE style and scripts, creating separated SASS and Javascript files.
+
 Build in Shellscript, giving the power to call any command we need in the development.
 
 ### Requirements
