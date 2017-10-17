@@ -1,0 +1,168 @@
+#!/bin/sh
+# References
+# http://labs.infyom.com/laravelgenerator/
+# http://www.initializr.com/
+# https://laravel.com/
+# https://cdnjs.com/
+# https://necolas.github.io/normalize.css/
+# https://leaverou.github.io/prefixfree/
+# https://jquery.com/
+
+red="\033[0;31m"
+gre="\033[0;32m"
+yel="\033[0;33m"
+nor="\033[0m"
+
+fresh(){
+echo "$yel""\nRemoving the .git of Admin LTE from the foulder."
+rm -rf .git
+
+echo "Changing the web.php file."
+sed -i '14,$d' routes/web.php
+echo "Route::get('/', function () {
+  return view('welcome');
+});
+
+Auth::routes();
+
+Route::get('/admin', 'HomeController@index');" >> routes/web.php
+
+echo "Deleting the welcome.blade.php page."
+rm -rf resources/views/welcome.blade.php
+
+echo "Creating the layout-welcome foulder."
+mkdir resources/views/layout-welcome
+
+# Master
+echo "Creating the master.blade.php layout."
+echo "<!DOCTYPE html>
+<html lang=\"{{ app()->getLocale() }}\">
+    @include('layout-welcome.head')
+
+    <body>
+    	@include('layout-welcome.nav')
+
+		@yield('content')
+
+        @include('layout-welcome.footer')
+
+        @include('layout-welcome.scripts')	
+    </body>
+</html>" >> resources/views/layout-welcome/master.blade.php
+
+# Head
+echo "Creating the head.blade.php layout."
+echo "<head>
+    <meta charset=\"utf-8\">
+    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\">
+    <title></title>
+    <meta name=\"description\" content=\"\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+    <meta name=\"csrf-token\" content=\"{{ csrf_token() }}\">
+    <link rel=\"icon\" type=\"image/png\" href=\"\">
+
+    <!-- Fonts -->
+
+    <!-- Normalize CDN -->
+    <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css\" integrity=\"sha256-HxaKz5E/eBbvhGMNwhWRPrAR9i/lG1JeT4mD6hCQ7s4=\" crossorigin=\"anonymous\">
+
+    <!-- CSS/SASS -->
+    <link rel=\"stylesheet\" href=\"/css/welcome.css\">
+</head>" >> resources/views/layout-welcome/head.blade.php
+
+# Nav
+echo "Creating the nav.blade.php layout."
+echo "<nav>
+
+</nav>" >> resources/views/layout-welcome/nav.blade.php
+
+# Footer
+echo "Creating the footer.blade.php layout."
+echo "<footer>
+
+</footer>" >> resources/views/layout-welcome/footer.blade.php
+
+# Scripts
+echo "Creating the scripts.blade.php layout."
+echo "<!-- JQuery CDN -->
+<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js\" integrity=\"sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=\" crossorigin=\"anonymous\"></script>
+
+<!-- Prefixfree CDN -->
+<script src=\"https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js\" integrity=\"sha256-GaKOLXTn7uJXFuWp57ukQZGuKK2gWZWlEH16hc6jBU8=\" crossorigin=\"anonymous\"></script>
+
+<!-- Javascript -->
+<script type=\"text/javascript\" src=\"/js/welcome.js\"></script>" >> resources/views/layout-welcome/scripts.blade.php
+
+# Welcome Page
+echo "Creating the welcome.blade.php page."
+echo "@extends('layout-welcome.master')
+
+@section('content')
+
+@endsection" >> resources/views/welcome.blade.php
+
+echo "Populating webpack.mix.js file whit the welcome.js and welcome.scss files."
+sed -i '14,$d' webpack.mix.js
+echo "mix.js('resources/assets/js/app.js', 'public/js')
+   .js('resources/assets/js/welcome.js', 'public/js')
+   .sass('resources/assets/sass/app.scss', 'public/css')
+   .sass('resources/assets/sass/welcome.scss', 'public/css');" >> webpack.mix.js
+
+echo "Creating the welcome.js file."
+echo "// Custom Javascript
+" >> resources/assets/js/welcome.js
+
+echo "Populating the welcome.scss file whit the welcome page layouts."
+echo "/* Fonts */
+
+/* Variables */
+@import \"welcome-variables\";
+/* Welcome Nav */
+@import \"welcome-nav\";
+/* Welcome Body */
+@import \"welcome-body\";
+/* Welcome Footer */
+@import \"welcome-footer\";
+" >> resources/assets/sass/welcome.scss
+
+echo "Creating the _welcome-variables, _welcome-nav, _welcome-body and _welcome-footer SASS files."
+echo "/* Welcome Variables */
+" >> resources/assets/sass/_welcome-variables.scss
+echo "/* Welcome Nav */
+" >> resources/assets/sass/_welcome-nav.scss
+echo "/* Welcome Body */
+" >> resources/assets/sass/_welcome-body.scss
+echo "/* Welcome Footer */
+" >> resources/assets/sass/_welcome-footer.scss
+
+echo "Compiling the JS and SASS files."
+npm run dev
+
+echo "$gre""\nDone, run npm run watch to compile the SASS in real time."
+} # END fresh
+
+echo "$nor""Generating the template for InfyOm Laravel Generator/AdminLTE integrated whit front-end on Laravel 5.4 project."
+echo "Created by""$yel Grupo Tesseract$nor"".\n"
+
+echo "$gre""Make sure you followed these steps before running the program:" 
+echo "$yel""Cloned InfyOm Laravel Generator for AdminLTE Template:"
+echo "$nor""git clone https://github.com/InfyOmLabs/adminlte-generator/tree/5.4 project-name"
+echo "$yel""Created the .env file."
+echo "Created a database and ran:$nor php artisan migrate & php artisan key:generate"
+echo "$yel""Be in the project directory.\n"
+
+echo -n "$nor""Have you followed those steps?$gre [y|n]$nor"": "; read input_variable
+case $input_variable in
+	'y')
+	    fresh
+	    ;;
+	'n')
+	    echo "$red""Canceling the action.$nor"
+		;;
+	'')
+	    echo "$red""No arguments detected!$nor"
+		;;
+	*)
+		echo "$red""Invalid argument!$nor"
+		;;
+esac
