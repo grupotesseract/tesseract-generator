@@ -13,7 +13,7 @@ Build in Shell script, giving the power to call any command we need in the devel
 ### Instructions
 1. Clone this project in to your ~/bin directory, in the folder tesseract-generator:
    `git clone https://github.com/grupotesseract/tesseract-generator.git` 
-2. Run ~/install to add the tesseract-generator directory to your $PATH in ~/.zshrc, so you can call it globally in your machine.
+2. Run ./install to add the tesseract-generator directory to your $PATH in ~/.zshrc, so you can call it globally in your machine.
    If you don't have ZSH installed, just move the tesseract-generator file in to the ~/bin directory.
 3. Clone the [Boilerplate of Laravel with InfyOm Laravel Generator for AdminLTE](https://github.com/InfyOmLabs/adminlte-generator/tree/5.4).
 4. Open the project directory.
