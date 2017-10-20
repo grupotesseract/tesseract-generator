@@ -17,18 +17,28 @@ fresh(){
 echo "$yel""\nRemoving the .git of Admin LTE from the foulder."
 rm -rf .git
 
-echo "Changing the web.php file."
+echo "Running: composer intall & npm install$nor"
+composer install & npm install
+
+echo "Running: php artisan migrate & php artisan key:generate$nor"
+php artisan migrate & php artisan key:generate
+
+echo "$yel""Changing the web.php file."
 sed -i '14,$d' routes/web.php
 echo "Route::get('/', function () {
-  return view('welcome');
+  return view('pages.welcome');
 });
 
 Auth::routes();
 
-Route::get('/admin', 'HomeController@index');" >> routes/web.php
+Route::get('/admin', 'HomeController@index');
+Route::get('/home', 'HomeController@index');" >> routes/web.php
 
 echo "Deleting the welcome.blade.php page."
 rm -rf resources/views/welcome.blade.php
+
+echo "Creating the pages foulder."
+mkdir resources/views/pages
 
 echo "Creating the layout-welcome foulder."
 mkdir resources/views/layout-welcome
@@ -99,7 +109,7 @@ echo "@extends('layout-welcome.master')
 
 @section('content')
 
-@endsection" >> resources/views/welcome.blade.php
+@endsection" >> resources/views/pages/welcome.blade.php
 
 echo "Populating webpack.mix.js file whit the welcome.js and welcome.scss files."
 sed -i '14,$d' webpack.mix.js
@@ -146,10 +156,10 @@ echo "Created by""$yel Grupo Tesseract$nor"".\n"
 
 echo "$gre""Make sure you followed these steps before running the program:" 
 echo "$yel""Cloned InfyOm Laravel Generator for AdminLTE Template:"
-echo "$nor""git clone https://github.com/InfyOmLabs/adminlte-generator/tree/5.4 project-name"
-echo "$yel""Created the .env file."
-echo "Created a database and ran:$nor php artisan migrate & php artisan key:generate"
-echo "$yel""Be in the project directory.\n"
+echo "$nor""git clone https://github.com/InfyOmLabs/adminlte-generator.git project-name"
+echo "$yel""Created a database."
+echo "Created the .env file."
+echo "Be in the project directory.\n"
 
 echo -n "$nor""Have you followed those steps?$gre [y|n]$nor"": "; read input_variable
 case $input_variable in

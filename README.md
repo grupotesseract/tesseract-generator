@@ -6,23 +6,19 @@ This come from the necessity to run AdminLTE alongside a front-end project, whit
 Build in Shell script, giving the power to call any command we need in the development.
 
 ### Requirements
-- GNU/Linux Operational System
-- Node.js and NPM
+- [GNU/Linux Operational System](https://www.ubuntu.com/)
+- [Composer](https://getcomposer.org/)
+- [Node.js and NPM](https://nodejs.org/en/)
 
 ### Instructions
 1. Clone this project in to your ~/bin directory, in the folder tesseract-generator:
    `git clone https://github.com/grupotesseract/tesseract-generator.git` 
-2. Run ~/install.sh to add the tesseract-generator directory to your $PATH in ~/.zshrc, so you can call it globally in your machine.
-   If you dont use ZSH run this instead:
-   ```
-   echo '
-   # Tesseract Generator
-   export PATH="$HOME/bin/tesseract-generator:$PATH"' >> ~/.bashrc
-   ```
+2. Run ~/install to add the tesseract-generator directory to your $PATH in ~/.zshrc, so you can call it globally in your machine.
+   If you don't have ZSH installed, just move the tesseract-generator file in to the ~/bin directory.
 3. Clone the [Boilerplate of Laravel with InfyOm Laravel Generator for AdminLTE](https://github.com/InfyOmLabs/adminlte-generator/tree/5.4).
 4. Open the project directory.
+6. Create a database.
 5. Create a .env file.
-6. Create a database and run: `php artisan migrate & php artisan key:generate`
 7. Open the project directory and run: `tesseract-generator` 
 
 ### Structure
@@ -32,7 +28,8 @@ The landing page are the welcome.blade.php and you can access the AdminLTE in th
 (HTML)
 - resources
 -- views
---- welcome.blade.php
+--- pages (any extra pages go here, about, projects, etc)
+------ welcome.blade.php
 --- layout-welcome
 ------ master.blade.php
 ------ head.blade.php
