@@ -18,10 +18,8 @@ echo "$yel""\nRemoving the .git of Admin LTE from the foulder."
 rm -rf .git
 
 echo "Running: composer intall & npm install$nor"
-composer install & npm install
-
-echo "Running: php artisan migrate & php artisan key:generate$nor"
-php artisan migrate & php artisan key:generate
+composer install
+npm install
 
 echo "$yel""Changing the web.php file."
 sed -i '14,$d' routes/web.php
@@ -148,7 +146,10 @@ echo "/* Welcome Footer */
 echo "Compiling the JS and SASS files."
 npm run dev
 
-echo "$gre""\nDone, run npm run watch to compile the SASS in real time."
+echo "$gre""\nDone!
+Run npm run watch to compile the SASS in real time.
+Run php artisan migrate after you create a db and created a .env file."
+
 } # END fresh
 
 echo "$nor""Generating the template for InfyOm Laravel Generator/AdminLTE integrated whit front-end on Laravel 5.4 project."
@@ -157,8 +158,6 @@ echo "Created by""$yel Grupo Tesseract$nor"".\n"
 echo "$gre""Make sure you followed these steps before running the program:" 
 echo "$yel""Cloned InfyOm Laravel Generator for AdminLTE Template:"
 echo "$nor""git clone https://github.com/InfyOmLabs/adminlte-generator.git project-name"
-echo "$yel""Created a database."
-echo "Created the .env file."
 echo "Be in the project directory.\n"
 
 echo -n "$nor""Have you followed those steps?$gre [y|n]$nor"": "; read input_variable
