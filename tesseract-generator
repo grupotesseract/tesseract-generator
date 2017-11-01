@@ -179,8 +179,8 @@ echo "Compiling the JS and SASS files."
 npm run dev
 
 echo "$gre""\nDone!
-After you create a db and a .env file, run:
-$norphp artisan migrate
+After you create a db and a .env file, run:$nor
+php artisan migrate
 php artisan key:generate$gre
 Run$nor composer install$gre to resolve the dependencies.
 Run$nor npm run watch$gre to compile the SASS in real time."
