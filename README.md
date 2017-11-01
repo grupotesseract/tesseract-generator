@@ -22,8 +22,6 @@ Build in Shell script, giving the power to call any command we need in the devel
 5. Open the project directory and run: `tesseract-generator` 
 
 ### File Structure
-The landing page are the welcome.blade.php and you can access the AdminLTE in the adress /admin
-
 ```
 (HTML)
 - resources
