@@ -17,9 +17,8 @@ Build in Shell script, giving the power to call any command we need in the devel
    If you don't have ZSH installed, just move the tesseract-generator file in to the ~/bin directory.
 3. Clone the [Boilerplate of Laravel with InfyOm Laravel Generator for AdminLTE](https://github.com/InfyOmLabs/adminlte-generator/tree/5.4).
 4. Open the project directory.
-6. Create a database.
 5. Create a .env file.
-7. Open the project directory and run: `tesseract-generator` 
+6. Open the project directory and run: `tesseract-generator` 
 
 ### Structure
 The landing page are the welcome.blade.php and you can access the AdminLTE in the adress /admin

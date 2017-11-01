@@ -17,7 +17,7 @@ fresh(){
 echo "$yel""\nRemoving the .git of Admin LTE from the foulder."
 rm -rf .git
 
-echo "Running: composer intall & npm install$nor"
+echo "Running: npm install$nor"
 composer install
 npm install
 
@@ -147,8 +147,9 @@ echo "Compiling the JS and SASS files."
 npm run dev
 
 echo "$gre""\nDone!
-Run npm run watch to compile the SASS in real time.
-Run php artisan migrate after you create a db and created a .env file."
+Run$nor composer install $gre to resolves the dependencies.
+Run$nor npm run watch$gre to compile the SASS in real time.
+Run$nor php artisan migrate$gre after you create a db and created a .env file."
 
 } # END fresh
 
