@@ -57,9 +57,9 @@ class AdminController extends Controller
 }" >> app/Http/Controllers/AdminController.php
 
 echo "Changing Login, Register and Password Controllers."
-sed -i -- 's/home/pages.admin/g' app/Http/Controllers/Auth/LoginController.php
-sed -i -- 's/home/pages.admin/g' app/Http/Controllers/Auth/RegisterController.php
-sed -i -- 's/home/pages.admin/g' app/Http/Controllers/Auth/ResetPasswordController.php
+sed -i -- 's/home/admin/g' app/Http/Controllers/Auth/LoginController.php
+sed -i -- 's/home/admin/g' app/Http/Controllers/Auth/RegisterController.php
+sed -i -- 's/home/admin/g' app/Http/Controllers/Auth/ResetPasswordController.php
 
 echo "Creating the pages foulder."
 mkdir resources/views/pages
