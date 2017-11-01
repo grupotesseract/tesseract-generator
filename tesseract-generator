@@ -15,7 +15,7 @@ nor="\033[0m"
 
 fresh(){
 echo "$yel""\nRemoving the .git of Admin LTE from the foulder."
-rm -rf .git
+# rm -rf .git
 
 echo "Running: npm install$nor"
 composer install
@@ -29,8 +29,35 @@ echo "Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/admin', 'HomeController@index');
-Route::get('/home', 'HomeController@index');" >> routes/web.php
+Route::get('/admin', 'AdminController@index');" >> routes/web.php
+
+echo "Deleting HomeController.php."
+rm -rf app/Http/Controllers/HomeController.php
+
+echo "Creating AdminController.php."
+echo "<?php
+
+namespace App\Http\Controllers;
+
+class AdminController extends Controller
+{
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('admin');
+    }
+}" >> app/Http/Controllers/AdminController.php
+
+echo "Renaming the home.blade.php to admin.blade.php."
+mv resources/views/home.blade.php resources/views/admin.blade.php
 
 echo "Deleting the welcome.blade.php page."
 rm -rf resources/views/welcome.blade.php
