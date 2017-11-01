@@ -3,6 +3,8 @@ Generate a template for [InfyOm Laravel Generator/AdminLTE](http://labs.infyom.c
 
 This come from the necessity to run AdminLTE alongside a front-end project, whitout interfering the AdminLTE style and scripts, creating separated SASS and Javascript files for the Home view.
 
+The home.blade.php view can be accessed by the address '/' and AdminLTE by the address '/admin'.
+
 Build in Shell script, giving the power to call any command we need in the development.
 
 ### Requirements
@@ -61,6 +63,7 @@ Running: npm install
 Changing the web.php file.
 Deleting HomeController.php.
 Creating AdminController.php.
+Changing Login, Register and Password Controllers.
 Creating the pages foulder.
 Renaming the home.blade.php view to admin.blade.php.
 Deleting the welcome.blade.php view.
