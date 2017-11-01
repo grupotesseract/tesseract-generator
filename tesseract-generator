@@ -14,7 +14,7 @@ yel="\033[0;33m"
 nor="\033[0m"
 
 fresh(){
-echo "$yel""\nRemoving the .git of Admin LTE from the foulder."
+# echo "$yel""\nRemoving the .git of Admin LTE from the foulder."
 # rm -rf .git
 
 echo "Running: npm install$nor"
@@ -24,7 +24,7 @@ npm install
 echo "$yel""Changing the web.php file."
 sed -i '14,$d' routes/web.php
 echo "Route::get('/', function () {
-  return view('pages.welcome');
+  return view('pages.home');
 });
 
 Auth::routes();
@@ -52,38 +52,38 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin');
+        return view('pages.admin');
     }
 }" >> app/Http/Controllers/AdminController.php
-
-echo "Renaming the home.blade.php to admin.blade.php."
-mv resources/views/home.blade.php resources/views/admin.blade.php
-
-echo "Deleting the welcome.blade.php page."
-rm -rf resources/views/welcome.blade.php
 
 echo "Creating the pages foulder."
 mkdir resources/views/pages
 
-echo "Creating the layout-welcome foulder."
-mkdir resources/views/layout-welcome
+echo "Renaming the home.blade.php view to admin.blade.php."
+mv resources/views/home.blade.php resources/views/pages/admin.blade.php
+
+echo "Deleting the welcome.blade.php view."
+rm -rf resources/views/welcome.blade.php
+
+echo "Creating the layout-home foulder."
+mkdir resources/views/layout-home
 
 # Master
 echo "Creating the master.blade.php layout."
 echo "<!DOCTYPE html>
 <html lang=\"{{ app()->getLocale() }}\">
-    @include('layout-welcome.head')
+    @include('layout-home.head')
 
     <body>
-    	@include('layout-welcome.nav')
+    	@include('layout-home.nav')
 
 		@yield('content')
 
-        @include('layout-welcome.footer')
+        @include('layout-home.footer')
 
-        @include('layout-welcome.scripts')	
+        @include('layout-home.scripts')	
     </body>
-</html>" >> resources/views/layout-welcome/master.blade.php
+</html>" >> resources/views/layout-home/master.blade.php
 
 # Head
 echo "Creating the head.blade.php layout."
@@ -102,20 +102,20 @@ echo "<head>
     <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css\" integrity=\"sha256-HxaKz5E/eBbvhGMNwhWRPrAR9i/lG1JeT4mD6hCQ7s4=\" crossorigin=\"anonymous\">
 
     <!-- CSS/SASS -->
-    <link rel=\"stylesheet\" href=\"/css/welcome.css\">
-</head>" >> resources/views/layout-welcome/head.blade.php
+    <link rel=\"stylesheet\" href=\"/css/home.css\">
+</head>" >> resources/views/layout-home/head.blade.php
 
 # Nav
 echo "Creating the nav.blade.php layout."
 echo "<nav>
 
-</nav>" >> resources/views/layout-welcome/nav.blade.php
+</nav>" >> resources/views/layout-home/nav.blade.php
 
 # Footer
 echo "Creating the footer.blade.php layout."
 echo "<footer>
 
-</footer>" >> resources/views/layout-welcome/footer.blade.php
+</footer>" >> resources/views/layout-home/footer.blade.php
 
 # Scripts
 echo "Creating the scripts.blade.php layout."
@@ -126,58 +126,59 @@ echo "<!-- JQuery CDN -->
 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js\" integrity=\"sha256-GaKOLXTn7uJXFuWp57ukQZGuKK2gWZWlEH16hc6jBU8=\" crossorigin=\"anonymous\"></script>
 
 <!-- Javascript -->
-<script type=\"text/javascript\" src=\"/js/welcome.js\"></script>" >> resources/views/layout-welcome/scripts.blade.php
+<script type=\"text/javascript\" src=\"/js/home.js\"></script>" >> resources/views/layout-home/scripts.blade.php
 
-# Welcome Page
-echo "Creating the welcome.blade.php page."
-echo "@extends('layout-welcome.master')
+# Home Page
+echo "Creating the home.blade.php page."
+echo "@extends('layout-home.master')
 
 @section('content')
 
-@endsection" >> resources/views/pages/welcome.blade.php
+@endsection" >> resources/views/pages/home.blade.php
 
-echo "Populating webpack.mix.js file whit the welcome.js and welcome.scss files."
+echo "Populating webpack.mix.js file whit the home.js and home.scss files."
 sed -i '14,$d' webpack.mix.js
 echo "mix.js('resources/assets/js/app.js', 'public/js')
-   .js('resources/assets/js/welcome.js', 'public/js')
+   .js('resources/assets/js/home.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
-   .sass('resources/assets/sass/welcome.scss', 'public/css');" >> webpack.mix.js
+   .sass('resources/assets/sass/home.scss', 'public/css');" >> webpack.mix.js
 
-echo "Creating the welcome.js file."
+echo "Creating the home.js file."
 echo "// Custom Javascript
-" >> resources/assets/js/welcome.js
+" >> resources/assets/js/home.js
 
-echo "Populating the welcome.scss file whit the welcome page layouts."
+echo "Populating the home.scss file whit the home page layouts."
 echo "/* Fonts */
 
 /* Variables */
-@import \"welcome-variables\";
-/* Welcome Nav */
-@import \"welcome-nav\";
-/* Welcome Body */
-@import \"welcome-body\";
-/* Welcome Footer */
-@import \"welcome-footer\";
-" >> resources/assets/sass/welcome.scss
+@import \"home-variables\";
+/* Home Nav */
+@import \"home-nav\";
+/* Home Body */
+@import \"home-body\";
+/* Home Footer */
+@import \"home-footer\";
+" >> resources/assets/sass/home.scss
 
-echo "Creating the _welcome-variables, _welcome-nav, _welcome-body and _welcome-footer SASS files."
-echo "/* Welcome Variables */
-" >> resources/assets/sass/_welcome-variables.scss
-echo "/* Welcome Nav */
-" >> resources/assets/sass/_welcome-nav.scss
-echo "/* Welcome Body */
-" >> resources/assets/sass/_welcome-body.scss
-echo "/* Welcome Footer */
-" >> resources/assets/sass/_welcome-footer.scss
+echo "Creating the _home-variables, _home-nav, _home-body and _home-footer SASS files."
+echo "/* Home Variables */
+" >> resources/assets/sass/_home-variables.scss
+echo "/* Home Nav */
+" >> resources/assets/sass/_home-nav.scss
+echo "/* Home Body */
+" >> resources/assets/sass/_home-body.scss
+echo "/* Home Footer */
+" >> resources/assets/sass/_home-footer.scss
 
 echo "Compiling the JS and SASS files."
 npm run dev
 
 echo "$gre""\nDone!
-Run$nor composer install $gre to resolves the dependencies.
-Run$nor npm run watch$gre to compile the SASS in real time.
-Run$nor php artisan migrate$gre after you create a db and created a .env file."
-
+After you create a db and a .env file, run:
+$norphp artisan migrate
+php artisan key:generate$gre
+Run$nor composer install$gre to resolve the dependencies.
+Run$nor npm run watch$gre to compile the SASS in real time."
 } # END fresh
 
 echo "$nor""Generating the template for InfyOm Laravel Generator/AdminLTE integrated whit front-end on Laravel 5.4 project."

@@ -1,7 +1,7 @@
 # Tesseract Generator
 Generate a template for [InfyOm Laravel Generator/AdminLTE](http://labs.infyom.com/laravelgenerator/) integrated whit front-end project on [Laravel 5.4](https://laravel.com/), using Shell script.
 
-This come from the necessity to run AdminLTE alongside a front-end project, whitout interfering the AdminLTE style and scripts, creating separated SASS and Javascript files.
+This come from the necessity to run AdminLTE alongside a front-end project, whitout interfering the AdminLTE style and scripts, creating separated SASS and Javascript files for the Home view.
 
 Build in Shell script, giving the power to call any command we need in the development.
 
@@ -20,7 +20,7 @@ Build in Shell script, giving the power to call any command we need in the devel
 5. Create a .env file.
 6. Open the project directory and run: `tesseract-generator` 
 
-### Structure
+### File Structure
 The landing page are the welcome.blade.php and you can access the AdminLTE in the adress /admin
 
 ```
@@ -28,29 +28,62 @@ The landing page are the welcome.blade.php and you can access the AdminLTE in th
 - resources
 -- views
 --- pages (any extra pages go here, about, projects, etc)
------- welcome.blade.php
---- layout-welcome
+------ home.blade.php
+------ admin.blade.php (AdminLTE)
+--- layout-home
 ------ master.blade.php
 ------ head.blade.php
 ------ nav.blade.php
 ------ footer.blade.php
 ------ scripts.blade.php
---- home.blade.php (AdminTE)
---- layouts (AdminTE)
+--- layouts (AdminLTE)
 ```
 ```
 (JS/SASS)
 - resources
 -- assets
 --- js
------- welcome.js
+------ home.js
 ------ app.js
 --- sass
------- welcome.scss
------- _welcome-variables.scss
------- _welcome-nav.scss
------- _welcome-body.scss
------- _welcome-footer.scss
------- app.scss (AdminTE)
------- _variables.scss (AdminTE)
+------ home.scss
+------ _home-variables.scss
+------ _home-nav.scss
+------ _home-body.scss
+------ _home-footer.scss
+------ app.scss (AdminLTE)
+------ _variables.scss (AdminLTE)
+```
+
+### After you run the script you should see this massage in terminal:
+```
+Removing the .git of Admin LTE from the foulder.
+Running: npm install
+Changing the web.php file.
+Deleting HomeController.php.
+Creating AdminController.php.
+Creating the pages foulder.
+Renaming the home.blade.php view to admin.blade.php.
+Deleting the welcome.blade.php view.
+Creating the layout-home foulder.
+Creating the master.blade.php layout.
+Creating the head.blade.php layout.
+Creating the nav.blade.php layout.
+Creating the footer.blade.php layout.
+Creating the scripts.blade.php layout.
+Creating the home.blade.php page.
+Populating webpack.mix.js file whit the home.js and home.scss files.
+Creating the home.js file.
+Populating the home.scss file whit the home page layouts.
+Creating the _home-variables, _home-nav, _home-body and _home-footer SASS files.
+Compiling the JS and SASS files.
+/.../
+DONE  Compiled successfully in 6479ms
+
+Done!
+After you create a db and a .env file, run:
+php artisan migrate
+php artisan key:generate
+Run composer install to resolve the dependencies.
+Run npm run watch to compile the SASS in real time.
 ```
